@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Cash - Conversor de Moneda</title>
+    <link rel="stylesheet" href="misEstilos3.css">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">TradeCash</a>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home" class="active">Inicio</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#promociones">Promociones</a></li>
+                <li><a href="#iniciarsesion">Iniciar sesión</a></li>
+                <li><a href="#registrarse">Registrarse</a></li>
+            </ul>
+        </nav>
+        <div class="fas fa-bars"></div>
+    </header>
+    <section class="home" id="home">
+        <div class="currency-converter">
+            <h1>Conversor de Moneda</h1>
+            <form>
+                <label for="currencyAmount">Ingrese un monto en moneda local:</label>
+                <input type="number" id="currencyAmount" placeholder="Monto" required>
+                <br>
+                <button id="convertToDollars">Compra</button>
+                <button id="convertToSoles">Venta</button>
+            </form>
+            <div id="result-container">
+                <p id="result"></p>
+            </div>
+            <script>
+                const currencyAmountInput = document.getElementById("currencyAmount");
+                const convertToDollarsButton = document.getElementById("convertToDollars");
+                const convertToSolesButton = document.getElementById("convertToSoles");
+                const resultElement = document.getElementById("result");
+                const resultContainer = document.getElementById("result-container");
+                convertToDollarsButton.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    convertCurrency("USD", 0.26);
+                });
+                convertToSolesButton.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    convertCurrency("PEN", 3.87);
+                });
+                function convertCurrency(targetCurrency, exchangeRate) {
+                    const currencyAmount = parseFloat(currencyAmountInput.value);
+                    if (isNaN(currencyAmount) || currencyAmount <= 0) {
+                        displayError("Ingrese un número válido y positivo");
+                        return;
+                    }
+                    if (!exchangeRate) {
+                        displayError("Moneda no válida");
+                        return;
+                    }
+                    const result = currencyAmount * exchangeRate;
+                    const formattedResult = `${result.toFixed(2)} ${targetCurrency}`;
+                    displayResult(formattedResult);
+                }
+                function displayResult(resultText) {
+                    resultElement.textContent = resultText;
+                    resultContainer.style.border = "1px solid #9bc1ff"; // Borde azul claro
+                    resultContainer.style.boxShadow = "2px 2px 5px #888888";
+                    resultContainer.style.fontFamily = "'Open Sans', sans-serif";
+                    resultContainer.style.padding = "10px"; // Agrega un relleno para que el resultado sea más legible
+                }
+                function displayError(errorText) {
+                    resultElement.textContent = errorText;
+                    resultContainer.style.border = "none"; // Elimina el borde en caso de error
+                }
+            </script>
+        </div>
+        <div class="credit-card-transaction">
+            <div class="form-button-container">
+                <button id="showTransactionFormButton">Realizar Transacción</button>
+            </div>
+            <form method="post" action="Validacion.php" id="transactionForm" style="display: none;">
+                <div class="form-group">
+                    <label for="nombre">Nombre en la tarjeta:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="numero_tarjeta">Número de tarjeta:</label>
+                    <input type="text" id="numero_tarjeta" name="numero_tarjeta" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_vencimiento">Fecha de vencimiento (MM/AA):</label>
+                    <input type="text" id="fecha_vencimiento" name="fecha_vencimiento" required>
+                </div>
+                <div class="form-group">
+                    <label for codigo_seguridad>Código de seguridad (CVV):</label>
+                    <input type="text" id="codigo_seguridad" name="codigo_seguridad" required>
+                </div>
+                <div class="form-group">
+                    <label for="monto">Monto a cargar:</label>
+                    <input type="number" id="monto" name="monto" placeholder="Monto" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" name="realizar_transaccion">Realizar Transacción</button>
+                </div>
+            </form>
+        </div>
+        <script>
+            const showFormButton = document.getElementById("showTransactionFormButton");
+            const transactionForm = document.getElementById("transactionForm");
+            showFormButton.addEventListener("click", function() {
+                transactionForm.style.display = "block";
+                showFormButton.style.display = "none";
+            });
+        </script>
+    </section>
+
+	<section class="blog" id="blog">
+			<h1 class="heading">Blog</h1>
+			<h3 class="title">Aqui tendras mas informacion sobre TradeCash</h3>
+			<div class="row">
+				<div class="image">	
+					<img src="blog.png" >
+				</div>
+				<div class="content">
+					<a href="blog.html"><button>Leer mas</button></a>
+                </div>
+			</div>
+		</section>
+		
+		<section class="promociones" id="promociones">
+			
+			<h1 class="heading">Promociones</h1>
+			<h3 class="title">Podras tener las mejores promociones del mercado con tan solo un click de distancia</h3>
+			<br>
+			<br>
+			<div class="imagenpromo">
+                <img src="promo.jpg" width="600" height="250">
+            </div>
+            <div id="kiko-slider">
+                <ul class="slider">
+                    <li id="slide1">
+                        <img src="promocion.png" />
+                    </li>
+                    <li id="slide2">
+                        <img src="findesemana.jpg" />
+                    </li>
+                    <li id="slide3">
+                        <img src="C.png" />
+                    </li>
+                </ul>
+                <ul class="menu">
+                    <li>
+                        <a href="#slide1"></a>
+                    </li>
+                    <li>
+                        <a href="#slide2"></a>
+                    </li>
+                    <li>
+                        <a href="#slide3"></a>
+                    </li>
+                </ul>
+            </div>
+            <div style="display: none;">
+                <a href="https://kikopalomares.com/" target="_blank">Powered by Kiko Palomares</a>
+            </div>
+        </section>
+
+		<section class="iniciarsesion" id="iniciarsesion"> 
+            <h1 class="heading">Iniciar Sesion</h1>
+            <div class="row">
+                <div class="form-container">
+                    <form>
+                        <input type="email" id="correo" placeholder="Correo" required>
+                        <input type="password" id="contrasena" placeholder="Contraseña" required>
+                        <input type="submit" value="Confirmar">
+                    </form>
+                </div>
+            </div>
+        </section>
+		
+		<section class="registrarse" id="registrarse">
+            <h1 class="heading">Registrate</h1>
+            <h3 class="title">Crea una cuenta para ser parte de TradeCash</h3>
+            <div class="row">
+                <div class="form-container">
+                    <form>
+                        <input type="text" id="nombre" placeholder="Nombre" required>
+                        <input type="text" id="apellido" placeholder="Apellido" required> 
+                        <input type="email" id="correo" placeholder="Correo" required>
+                        <input type="password" id="contrasena" placeholder="Contraseña" required>
+                        <textarea id="informacion" cols="15" rows="5" placeholder="Informacion Adicional"></textarea>
+                        <input type="submit" value="Registrar">
+                    </form>
+                </div>
+            </div>
+        </section>
+		
+		<section class="muypronto">
+			<h1 class="heading">Muy pronto</h1>
+			<h3 class="title">Podras hacer tus transferencias por via de nuestra aplicacion movil ya sea por IOs y Android</h3>
+			<br>
+			<div class="row">
+				<div class="image">	
+					<img src="celular.jfif" >
+				</div>	
+			</div>	
+		</section>
+        <section class="footer">
+            <h1 class="heading">Contactanos</h1>
+            <h3 class="title">984562371</h3>
+            <h3 class="title">TRADECASH@tradecash.pe</h3>
+            <h3 class="title">FACEBOOK / TRADECASH</h3>
+            <h3 class="title">X / TRADECASH</h3>
+            <h3 class="title">INSTRAGRAM / TRADECASH</h3>
+            <h3 class="title">REDDIT / TRADECASH</h3>
+            <br>
+            <br>
+            <div class="icons">
+                <a href="#" class="fab fa-facebook-f"></a>
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-instagram"></a>
+                <a href="#" class="fab fa-reddit"></a>
+            </div>
+            <br>
+        </section>
+	</body>
+</html>
