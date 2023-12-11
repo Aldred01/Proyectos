@@ -1,6 +1,6 @@
 <?php
 // Configuración de la conexión a la base de datos
-$host = 'mysql';
+$host = " mysql-nicolasv.alwaysdata.net";
 $usuario = 'nicolasv';
 $base_datos = 'user';
 
@@ -17,13 +17,16 @@ echo 'Conexión exitosa a la base de datos';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
+    $contrasena=$_POST['contrasena'];
+    $apellido=$_POST['apellido'];
+    $AD_Inf=$_POST['AD_Inf']
 
     // Verificar si los campos están vacíos
     if (empty($nombre) || empty($correo)) {
         echo 'Por favor, completa todos los campos obligatorios.';
     } else {
         // Agregar usuario a la base de datos
-        $stmt = $conexion->prepare('INSERT INTO usuarios (nombre, correo) VALUES (?, ?)');
+        $stmt = $conexion->prepare('INSERT INTO usuario (nombre, correo, contrasena, apellido, AD_Inf) VALUES (?, ?, ?, ?, ?)');
         $stmt->bind_param('sss', $nombre, $correo);
 
         if ($stmt->execute()) {
@@ -39,3 +42,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Cerrar la conexión a la base de datos
 $conexion->close();
 ?>
+
