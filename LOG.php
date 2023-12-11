@@ -1,6 +1,6 @@
 <?php
 // Configuración de la conexión a la base de datos
-$servername = "MySQL";
+$servername = " mysql-nicolasv.alwaysdata.net";
 $username = "nicolasv";
 $dbname = "user";
 
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena = $_POST["contrasena"];
 
     // Consultar la base de datos para verificar el usuario
-    $sql = "SELECT * FROM tu_tabla WHERE correo = '$correo' AND contrasena = '$contrasena'";
+    $sql = "SELECT * FROM usuario WHERE correo = '$correo' AND contrasena = '$contrasena'";
     $result = $conn->query($sql);
 
     // Verificar si se encontró un usuario
